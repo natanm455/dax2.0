@@ -1,3 +1,20 @@
+let errorM = document.getElementsByClassName("errorM")[0]
+
+// const naod = value => value ? 1 : 0;
+
+/**
+ * 
+ * @param {value} // form option value
+ * @returns 1 if there is value and 0 if there is no value
+ */
+function naod(value) {
+    let result;
+
+    if (value) result = 1;
+    else result = 0;
+
+    return result;
+}
 
 function setError(message){
     let newElement = document.createElement("div")
@@ -8,37 +25,39 @@ function setError(message){
 }
 
 let formData = document.querySelector("form");
-formData.addEventListener("submit", () => {
+formData.addEventListener("submit", (event) => {
 
-let errorM = document.getElementsByClassName("errorM");
+    event.preventDefault();
+
 
 let fodselsdatoData = formData.fodselsdato.value
 let isKvinne  = formData.isKvinne.value
+
+console.log(isKvinne);
 let wowRace = formData.wowRace.value
-let antallGangerRettetGeirSinProg = formData.antallGangerRettetGeirSinProg.value
-let  treningPerUke = formData.treningPerUke.value
-let  McTjukkasPerManed = formData.McTjukkasPerManed .value
-let hasFrokostForSkole = formData.hasFrokostForSkole.value 
-let hasDrivingFemalePartner = formData.hasDrivingFemalePartner.value 
-let  hasMaleDrivingPartner = formData.hasMaleDrivingPartner.value 
-let  isSpillerItimen = formData.isSpillerItimen.value 
+let antallGangerRettetGeirSinProg = parseInt(formData.antallGangerRettetGeirSinProg.value)
+let treningPerUke = parseInt(formData.treningPerUke.value)
+let McTjukkasPerManed = parseInt(formData.McTjukkasPerManed .value)
+let hasFrokostForSkole = naod(formData.hasFrokostForSkole.value);
+let hasDrivingFemalePartner = naod(formData.hasDrivingFemalePartner.value)
+let hasMaleDrivingPartner = naod(formData.hasDrivingMalePartner.value)
+let isSpillerItimen = formData.isSpillerItimen.value
 
-
-if(fodselsdatoDat != '') setError("Du har ikke oppgit riktig informasjon om datoen du er født")
+// Error handling
+if(fodselsdatoData != '') setError("Du har ikke oppgit riktig informasjon om datoen du er født")
 if(isKvinne != "") setError("Du har ikke oppgit riktig ")
 if (antallGangerRettetGeirSinProg === isNaN )
 if (treningPerUke != isNaN) 
 if (McTjukkasPerManed != isNaN)
 if (hasFrokostForSkole != "") setError("")
+
+let abdi = calculateAge( isKvinne, wowRace, antallGangerRettetGeirSinProg,
+    treningPerUke, McTjukkasPerManed,  
+    hasFrokostForSkole, hasDrivingFemalePartner, hasMaleDrivingPartner,
+    isSpillerItimen)
+console.log(abdi);
+
 })
-
-
-
-
-
-
-
-
 
 
 function calculateAge(
@@ -51,7 +70,7 @@ function calculateAge(
             calculatedAge = 81.7;
         } else {
             calculatedAge = 76.1;
-        }
+        } 
 
         if(wowRace) calculatedAge -=10.2; //To much sitting still..
         calculatedAge -= (McTjukkasPerManed*4.666);

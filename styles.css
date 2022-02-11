@@ -1,3 +1,8 @@
+body {
+    background-color: rgb(27, 17, 17);
+}
+
+
 label {
     position: relative;
     left: auto;
